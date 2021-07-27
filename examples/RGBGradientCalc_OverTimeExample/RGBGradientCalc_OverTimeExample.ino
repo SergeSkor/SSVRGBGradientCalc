@@ -10,15 +10,15 @@
 CRGB leds[NUM_LEDS];
 
 CRGB MinColor = CRGB::Blue;  //color matching to minimum value
-CRGB MaxColor = CRGB::Yellow; //color matching to maximum value
+CRGB MaxColor = CRGB::Red; //color matching to maximum value
 
 RGBGradientCalculator Gradient1;
 
 uint32_t minV = 0; //minimum value
 uint32_t maxV = 1023; //maximum value
 
-uint32_t phaseshift = 0;  //in mS
-accum88 beatrate = 15; //beats per minute!
+accum88 beatrate = 30; //beats per minute!
+uint16_t cycles=2; //how many cycles at a time
 
 void setup() 
 {
@@ -36,9 +36,14 @@ void setup()
 
 void loop() 
 {
-  uint32_t value = beatsin16(beatrate, minV, maxV, phaseshift); //current sin value
-  CRGB color = Gradient1.GetRGBGradientColor(value); //get color matching to current value
-  leds[0]=color; //set color
+
+  for (uint16_t i = 0; i < NUM_LEDS; i++)
+    {
+      uint16_t phaseshift = (0x0FFFF / NUM_LEDS * i * cycles); //0-zero, max 0x0FFFF - 360 degree
+      uint32_t value = beatsin16(beatrate, minV, maxV, 0, phaseshift); //current sin value
+      CRGB color = Gradient1.GetRGBGradientColor(value); //get color matching to current value
+      leds[i]=color; //set color
+    }
   
   FastLED.show();
   delay(10);
