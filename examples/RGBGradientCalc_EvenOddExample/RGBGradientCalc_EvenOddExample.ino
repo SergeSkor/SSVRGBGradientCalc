@@ -67,7 +67,7 @@ void loop()
   for (uint16_t i = 0; i < NUM_LEDS; i++)
     {
     if ( (i % 2) == 0)
-      color = EvenGradient.GetRGBGradientColor(i); //current index is even calculator to get color
+      color = EvenGradient.GetRGBGradientColor(i); //current index is even, use even calculator to get color
        else color = OddGradient.GetRGBGradientColor(i); //current index is odd so use odd calculator to get color
     leds[i]=color;
     }
