@@ -54,7 +54,7 @@ void FillGradientRect(int LeftBottomX, int LeftBottomY, int RightTopX, int Right
 {
   RGBGradientCalculator LeftGradient  (LeftBottomColor,  LeftTopColor,  LeftBottomY, RightTopY);
   RGBGradientCalculator RightGradient (RightBottomColor, RightTopColor, LeftBottomY, RightTopY);
-  for( byte y = LeftBottomY; y < RightTopY; y++) //
+  for( byte y = LeftBottomY; y <= RightTopY; y++) //
     {
     CRGB cl = LeftGradient.GetRGBGradientColor(y); 
     CRGB cr = RightGradient.GetRGBGradientColor(y);
@@ -73,27 +73,50 @@ void setup()
   FastLED.show();
   delay(500);
   Serial.println();
-
-  //LeftBottom Point
-  int x1 = 5; 
-  int y1 = 3;
-  
-  //RightTop Point
-  int x2 = 10; 
-  int y2 = 10;
-  
-  //Colors
-  CRGB c1 = CRGB::Blue; 
-  CRGB c2 = CRGB::Yellow;
-  CRGB c3 = CRGB::Red; 
-  CRGB c4 = CRGB::Green;
-  //
-  FillGradientRect( x1, y1, x2, y2, c1, c2, c3, c4);
-  FastLED.show();
 }
 
 void loop() 
 {
-  //FastLED.show();
-  //delay(10);
+  uint32_t frame_delay = 5000;
+
+  //FillGradientRect(LeftBottomX, LeftBottomY, RightTopX, RightTopY, LeftBottomColor, LeftTopColor, RightBottomColor, RightTopColor);
+  FastLED.clear();
+  Serial.println("Frame 1");
+  FillGradientRect( 0,  0,  15,  15,  CRGB::Red,    CRGB::Blue,   CRGB::Green,  CRGB::Yellow);
+  FastLED.show();
+  delay(frame_delay);
+  
+  FastLED.clear();
+  Serial.println("Frame 2");
+  FillGradientRect( 1,  1,  6,  6,   CRGB::Red,    CRGB::Blue,   CRGB::Green,  CRGB::Yellow);
+  FillGradientRect( 9,  9,  14, 14,  CRGB::Red,    CRGB::Blue,   CRGB::Green,  CRGB::Yellow);
+  FillGradientRect( 1,  9,  6,  14,  CRGB::Red,    CRGB::Blue,   CRGB::Green,  CRGB::Yellow);
+  FillGradientRect( 9,  1,  14, 6,   CRGB::Red,    CRGB::Blue,   CRGB::Green,  CRGB::Yellow);
+  FastLED.show();
+  delay(frame_delay);
+
+  FastLED.clear();
+  Serial.println("Frame 3");
+  FillGradientRect( 0,  0,  1,  1,   CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FillGradientRect( 2,  2,  4,  4,   CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FillGradientRect( 5,  5,  8,  8,   CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FillGradientRect( 9,  9,  15, 15,  CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FillGradientRect( 0,  9,  4,  15,  CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FillGradientRect( 9,  0,  15, 4,   CRGB::Red,    CRGB::Blue,   CRGB::Blue,  CRGB::Red);
+  FastLED.show();
+  delay(frame_delay);
+  
+  FastLED.clear();
+  Serial.println("Frame 4");
+  CRGB CenterColor  = CRGB::Red;
+  CRGB CornersColor = CRGB::Yellow;
+  CRGB MidsidesColor = CRGB::Blue;
+  FillGradientRect( 0,  0,  7,  7,   CornersColor,  MidsidesColor, MidsidesColor, CenterColor);
+  FillGradientRect( 8,  8,  15, 15,  CenterColor,   MidsidesColor, MidsidesColor, CornersColor);
+  FillGradientRect( 0,  8,  7,  15,  MidsidesColor, CornersColor,  CenterColor,   MidsidesColor);
+  FillGradientRect( 8,  0,  15, 7,   MidsidesColor, CenterColor,   CornersColor,  MidsidesColor);
+  FastLED.show();
+  delay(frame_delay);
 }
+
+  

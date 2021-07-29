@@ -126,23 +126,36 @@ void setup()
   FastLED.show();
   delay(500);
   Serial.println();
-
-  //Point #1
-  int x1 = 5; 
-  int y1 = 3;
-  CRGB color1 = CRGB::Blue; 
-
-  //Point #2
-  int x2 = 10; 
-  int y2 = 10;
-  CRGB color2 = CRGB::Yellow;
-
-  DrawGradientLine( x1, y1, x2, y2, color1, color2);
-  FastLED.show();
 }
 
 void loop() 
 {
-  //FastLED.show();
-  //delay(10);
+  uint32_t frame_delay = 5000;
+
+  //DrawGradientLine(int x1, int y1, int x2, int y2, CRGB color1, CRGB color2)
+  FastLED.clear();
+  Serial.println("Frame 1");
+  DrawGradientLine( 0, 0,  15, 15, CRGB::Red, CRGB::Blue);
+  DrawGradientLine( 0, 15, 15, 0,  CRGB::Red, CRGB::Blue);
+  FastLED.show();
+  delay(frame_delay);
+  
+  FastLED.clear();
+  Serial.println("Frame 2");
+  DrawGradientLine( 0, 7,  7, 0,  CRGB::Red,    CRGB::Blue);
+  DrawGradientLine( 8, 0, 15, 7,  CRGB::Blue,   CRGB::Green);
+  DrawGradientLine( 15, 8, 8, 15, CRGB::Green,  CRGB::Yellow);
+  DrawGradientLine( 7, 15, 0, 8,  CRGB::Yellow, CRGB::Red);
+  FastLED.show();
+  delay(frame_delay);
+
+  FastLED.clear();
+  Serial.println("Frame 3");
+  DrawGradientLine( 0, 9,  15, 15, CRGB::Green, CRGB::Red);
+  DrawGradientLine( 9, 0,  15, 15, CRGB::Green, CRGB::Red);
+  DrawGradientLine( 0, 9,  9,  0,  CRGB::Green, CRGB::Green);
+  
+  FastLED.show();
+  delay(frame_delay);
 }
+
